@@ -1,7 +1,7 @@
 package com.booyue.springboot_demo.controller;
 
 
-import com.booyue.springboot_demo.domain.User;
+import com.booyue.springboot_demo.domain.impl.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
