@@ -36,6 +36,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!--热部署工具 Ctrl+F9-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
