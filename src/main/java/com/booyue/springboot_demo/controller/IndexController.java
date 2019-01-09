@@ -2,6 +2,8 @@ package com.booyue.springboot_demo.controller;
 
 
 import com.booyue.springboot_demo.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class IndexController {
+
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @GetMapping("/index") //@RequestMapping(value = "/index" ,method = RequestMethod.GET)
     public String getIndex(Model model) {
@@ -27,4 +34,12 @@ public class IndexController {
         return "users";
     }
 
+
+    @GetMapping("/index.html")
+    public String index(Model model) {
+        String sql = "select * from customers";
+        List<Map<String, Object>> list = jdbcTemplate.queryForList(sql);
+        model.addAttribute("maps", list);
+        return "index";
+    }
 }
