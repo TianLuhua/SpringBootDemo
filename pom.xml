@@ -58,7 +58,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!--视图模版引擎-->
+        <!--FreeMarker视图模版引擎-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
@@ -67,6 +67,7 @@
 
     <build>
         <plugins>
+            <!--创建可执行jar-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
