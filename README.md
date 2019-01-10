@@ -129,3 +129,123 @@ public class ConfigParsent implements WebMvcConfigurer {
         return bean;
     }
 ~~~
+###5.整和MyBatis
+5.1 依赖MyBatis
+~~~
+        <!--用于连接mysql数据库-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.13</version>
+        </dependency>
+
+        <!--依赖MyBatis-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+~~~
+5.1 创建与数据库对应的实体类和Dao层接口
+~~~
+实体类：
+public class Customer {
+    private Integer id;
+    private Integer custId;
+    private String custName;
+    private String custCity;
+    private String custAddress;
+    private String custContact;
+    private String custSex;
+    
+    //省略get/set还有无参和有参构造方法,有需要也可以重写toString方法
+}
+
+Dao层接口：
+public interface CustomerDao {
+    // 增
+    public void addCustomer(Customer customer);
+    // 删
+    public void deleteCustomer(Integer id);
+    //改
+    public void updateCustomer(Customer customer);
+    //查
+    public Customer getCustomer(Integer id);
+}
+~~~
+5.3 创建mybatis全局配置文件<br>
+5.3.1 开启驼峰命名规则自动转换:resource/mybatis/mybatis-config.xml
+~~~
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!--开启驼峰命名规则自动转换-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+</configuration>
+~~~
+5.3.2 根据Dao层接口实现的sql查询语句：resource/mybatis/mapper/CustomerDao.xml
+~~~
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booyue.springboot_demo.dao.CustomerDao"> <!--mapper映射的必须是对应接口的包全名-->
+
+    <insert id="addCustomer">
+    insert into customers (cust_id,cust_name,cust_city,cust_address,cust_contact,cust_sex)
+      values
+      (#{custId},#{custName},#{custCity},#{custAddress},#{custContact},#{custSex})
+    </insert>
+
+    <delete id="deleteCustomer">
+    delete from customers where id=#{id}
+    </delete>
+
+    <update id="updateCustomer">
+    update customers s
+      set
+    s.cust_id=#{custId},s.cust_name=#{custName},s.cust_city=#{custCity},s.cust_address=#{custAddress},s.cust_contact=#{custContact},s.cust_sex=#{custSex}
+      where
+    s.id=#{id}
+    </update>
+
+    <select id="getCustomer" resultType="com.booyue.springboot_demo.model.Customer">
+    select * from customers where customers.id=#{id}
+    </select>
+
+</mapper>
+~~~
+5.3.3 告诉SpringBoot我的mybatis的配置所在路径：需要卸载SpringBoot的全局配置文件中(application.yml)
+~~~
+#############################以下是没有batis配置##########################
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: mybatis/mapper/*.xml
+#############################以上是没有batis配置##########################
+~~~
+5.3.4 告诉SpringBoot我们接口的位置：在SpringBoot主启动类上用@MapperScan加上接口所在包全名
+~~~
+@SpringBootApplication
+@MapperScan({"com.booyue.springboot_demo.dao"})
+public class SpringbootDemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringbootDemoApplication.class, args);
+    }
+}
+~~~
+5.3.5 mybatis操作数据库时候遇到的一系列问题：
+    5.3.5.1 插入中文乱码报错问题：将数据库使用到char作为字符集的时候设置为utf-8
+    5.3.5.2 处理系统一些警告提示：
+   ~~~
+   Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+   log4j:WARN No appenders could be found for logger (druid.sql.Connection).
+   log4j:WARN Please initialize the log4j system properly.
+   ~~~
+   按照最新官方提示支持将com.mysql.jdbc.Driver  改为  com.mysql.cj.jdbc.Driver<br>
+   
+   
+    

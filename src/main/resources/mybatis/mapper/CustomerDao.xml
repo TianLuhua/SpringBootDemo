@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.booyue.springboot_demo.dao.CustomerDao"> <!--mapper映射的必须是对应接口的包全名-->
+
+    <insert id="addCustomer">
+    insert into customers (cust_id,cust_name,cust_city,cust_address,cust_contact,cust_sex)
+      values
+      (#{custId},#{custName},#{custCity},#{custAddress},#{custContact},#{custSex})
+    </insert>
+
+    <delete id="deleteCustomer">
+    delete from customers where id=#{id}
+    </delete>
+
+    <update id="updateCustomer">
+    update customers s
+      set
+    s.cust_id=#{custId},s.cust_name=#{custName},s.cust_city=#{custCity},s.cust_address=#{custAddress},s.cust_contact=#{custContact},s.cust_sex=#{custSex}
+      where
+    s.id=#{id}
+    </update>
+
+    <select id="getCustomer" resultType="com.booyue.springboot_demo.model.Customer">
+    select * from customers where customers.id=#{id}
+    </select>
+
+</mapper>
