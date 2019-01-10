@@ -4,6 +4,12 @@ spring:
     password: 123456
     url: jdbc:mysql://localhost:3306/mysql_test?useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
+###########以下是jpa配置（Spring-data已经整和jpa，Spring-data中的jpa默认使用的hibernate）#############
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+###########以上是jpa配置（Spring-data已经整和jpa，Spring-data中的jpa默认使用的hibernate）#############
 
     ########################以下是Druid配置###############################
     type: com.alibaba.druid.pool.DruidDataSource
@@ -23,8 +29,10 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     useGlobalDataSourceStat: true
     #############################以上是Druid配置##########################
-#############################以下是没有batis配置##########################
+
+
+  #############################以下是batis配置##########################
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: mybatis/mapper/*.xml
-#############################以上是没有batis配置##########################
+  #############################以上是batis配置##########################

@@ -2,6 +2,8 @@ package com.booyue.springboot_demo;
 
 
 import com.booyue.springboot_demo.dao.CustomerDao;
+import com.booyue.springboot_demo.dao.SellerDao;
+import com.booyue.springboot_demo.model.Seller;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +11,22 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringbootDemoApplicationTest {
 
+//    @Autowired
+//    private CustomerDao customerDao;
+
     @Autowired
-    private CustomerDao customerDao;
+    private SellerDao sellerDao;
 
     @Test
     public void connectTest() throws SQLException {
 
-        System.out.println(customerDao.getClass());
+//        System.out.println(customerDao.getClass());
 
 
         //add
@@ -51,6 +57,19 @@ public class SpringbootDemoApplicationTest {
 //        Customer customer = customerDao.getCustomer(977);
 //        System.out.println(customer.toString());
 
+    }
+
+    @Test
+    public void testJpa() {
+        System.out.println(sellerDao.getClass());
+        Seller seller = new Seller();
+        seller.setSellerName("快乐水");
+        seller.setSellerAddress("超市");
+        seller.setSellerContent("具体什么内容，我也不知道");
+        seller.setSellerType("饮料");
+        seller.setSales(1);
+        seller.setSellerDate(new Date());
+        sellerDao.save(seller);
     }
 
 

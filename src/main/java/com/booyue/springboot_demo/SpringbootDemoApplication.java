@@ -9,7 +9,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 @SpringBootApplication
-@MapperScan({"com.booyue.springboot_demo.dao"})
+//@MapperScan({"com.booyue.springboot_demo.dao"})
 public class SpringbootDemoApplication {
 
     public static void main(String[] args) {

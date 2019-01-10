@@ -60,7 +60,17 @@
             <version>8.0.13</version>
         </dependency>
 
+        <!--jdbc启动器依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
 
+        <!--jpa启动器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 
         <!--依赖MyBatis-->
         <dependency>

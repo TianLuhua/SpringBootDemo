@@ -291,5 +291,125 @@ public class SpringbootDemoApplicationTest {
     }
 }
 ~~~
-   
-    
+###6.整和JPA
+6.1 添加依赖启动器：jdbc，jpa
+~~~
+ <!--用于连接mysql数据库-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.13</version>
+        </dependency>
+
+        <!--jdbc启动器依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <!--jpa启动器-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+~~~
+6.2 jpa全局配置文件
+~~~
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/mysql_test?useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    ########################以下是Druid配置###############################
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    useGlobalDataSourceStat: true
+    #############################以上是Druid配置##########################
+
+  #############################以下是batis配置##########################
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: mybatis/mapper/*.xml
+  #############################以上是batis配置##########################
+
+  ###########以下是jpa配置（Spring-data已经整和jpa，Spring-data中的jpa默认使用的hibernate）#############
+  jpa:
+    hibernate:
+      ddl-auto: update  # 第一次简表create  后面用update
+    show-sql: true
+
+  ###########以上是jpa配置（Spring-data已经整和jpa，Spring-data中的jpa默认使用的hibernate）#############
+~~~
+6.2 创建对应的实体类、注解，添加对应Dao层接口（extends JpaRepository<实体类,主键类型> ）
+~~~
+//通过@Entity 表明是一个映射的实体类， @Id表明id， @GeneratedValue 字段自动生成
+@Entity
+public class Seller {
+
+    @Id
+    @GeneratedValue
+    private Integer id;
+    private String sellerName;
+    private String sellerAddress;
+    private String sellerContent;
+    private String sellerType;
+    private String sales;
+    private Date sellerDate;
+
+    public Seller() {
+    }
+
+    public Seller(Integer id, String sellerName, String sellerAddress, String sellerContent, String sellerType, String sales, Date sellerDate) {
+        this.id = id;
+        this.sellerName = sellerName;
+        this.sellerAddress = sellerAddress;
+        this.sellerContent = sellerContent;
+        this.sellerType = sellerType;
+        this.sales = sales;
+        this.sellerDate = sellerDate;
+    }
+    //假装有get/set方法
+ }
+~~~
+6.3 测试JPA
+~~~
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class SpringbootDemoApplicationTest {
+
+    @Autowired
+    private SellerDao sellerDao;
+
+    @Test
+    public void testJpa() {
+        System.out.println(sellerDao.getClass());
+        Seller seller = new Seller();
+        seller.setSellerName("快乐水");
+        seller.setSellerAddress("超市");
+        seller.setSellerContent("具体什么内容，我也不知道");
+        seller.setSellerType("饮料");
+        seller.setSales(1);
+        seller.setSellerDate(new Date());
+        sellerDao.save(seller);
+    }
+}
+~~~
+
+6.4 jpa遇到的问题：<br>
+    6.4.1.插入中文时候报错(这个暂时我还不知道怎么处理，本来想看看能不能从jpa的配置文件中解决。最后还是在数据库中直接修改的utf-8)
+
