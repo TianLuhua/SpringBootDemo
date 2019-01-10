@@ -129,7 +129,7 @@ public class ConfigParsent implements WebMvcConfigurer {
         return bean;
     }
 ~~~
-###5.整和MyBatis
+###5.整和MyBatis<br>
 5.1 依赖MyBatis
 ~~~
         <!--用于连接mysql数据库-->
@@ -146,7 +146,7 @@ public class ConfigParsent implements WebMvcConfigurer {
             <version>1.3.2</version>
         </dependency>
 ~~~
-5.1 创建与数据库对应的实体类和Dao层接口
+5.2 创建与数据库对应的实体类和Dao层接口<br>
 ~~~
 实体类：
 public class Customer {
@@ -247,5 +247,49 @@ public class SpringbootDemoApplication {
    ~~~
    按照最新官方提示支持将com.mysql.jdbc.Driver  改为  com.mysql.cj.jdbc.Driver<br>
    
+5.3.6 测试mybatis：
+~~~
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class SpringbootDemoApplicationTest {
+
+    @Autowired
+    private CustomerDao customerDao;
+
+    @Test
+    public void connectTest() throws SQLException {
+        System.out.println(customerDao.getClass());
+
+        //add
+//        Customer customer = new Customer();
+//        customer.setCustId(123);
+//        customer.setCustName("huahua");
+//        customer.setCustCity("湖南.湘西");
+//        customer.setCustAddress("湖南.湘西.保靖");
+//        customer.setCustContact("湖南.湘西.保靖.清水坪");
+//        customer.setCustSex("M");
+//        customerDao.addCustomer(customer);
+
+        //delate
+//         customerDao.deleteCustomer(978);
+
+        //update
+//        Customer customer=new Customer();
+//        customer.setId(977);
+//        customer.setCustId(110);
+//        customer.setCustName("田露华");
+//        customer.setCustCity("湖南.湘西");
+//        customer.setCustAddress("湖南.湘西.保靖");
+//        customer.setCustContact("湖南.湘西.保靖.清水坪");
+//        customer.setCustSex("M");
+//        customerDao.updateCustomer(customer);
+
+        //select
+//        Customer customer = customerDao.getCustomer(977);
+//        System.out.println(customer.toString());
+
+    }
+}
+~~~
    
     
