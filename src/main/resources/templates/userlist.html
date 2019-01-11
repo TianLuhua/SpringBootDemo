@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+    <style>
+        .box {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        .header {
+            width: 100%;
+            height: 60px;
+            background: orange;
+        }
+
+        .content {
+            position: relative;
+            width: 1000px;
+            margin: 0 auto;
+        }
+
+        .content_body {
+            position: relative;
+            width: 100%;
+            height: 1000px;
+            background: olive;
+        }
+
+        .content_footer {
+            position: relative;
+            height: 60px;
+            background: orangered;
+            width: 100%
+        }
+
+        .left {
+            height: 100%;
+            width: 1000px;
+            float: left;
+            background: orchid;
+        }
+
+        .center {
+            float: left;
+            width: 1000px;
+            height: 100%;
+            background: blanchedalmond;
+        }
+
+        .right {
+            height: 100%;
+            width: 100px;
+            float: right;
+            background: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="box">
+        <div th:replace="commons::header"/>
+        <div class="content">
+            用户列表
+            <div class="content_body">
+                <div th:replace="commons::sidlebar(isActive='userlist.html')"/>
+                <div class="center">
+                    <form th:action="@{/userSearch.html}" method="post">
+                        搜索：<input type="text" name="searchByuserName">
+                        <input type="submit"/><a th:href="@{/adduser.html}" methods="post">添加用户</a>
+                    </form>
+                    <br>
+                    <table style="width: 1000px" border="1" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>用户ID</td>
+                            <td>用户名</td>
+                            <td>用户密码</td>
+                            <td>用户注册时间</td>
+                            <td>用户住址</td>
+                            <td>操作</td>
+                        </tr>
+                        <tr th:each="user:${users}">
+                            <td th:text="${user.getId()}"/>
+                            <td th:text="${user.getName()}"/>
+                            <td th:text="${user.getPassword()}"/>
+                            <td th:text="${user.getAddress().getAddressInfo()}"/>
+                            <td th:text="${user.getRegDate()}"/>
+                            <td><a th:href="@{/deleteuser.html(id=${user.id})}">删除</a>
+                                <a th:href="@{/updateuser.html(id=${user.id})}">修改</a>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div th:replace="commons::footer"/>
+    </div>
+</div>
+</body>
+</html>

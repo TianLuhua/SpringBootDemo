@@ -1,19 +1,35 @@
 package com.booyue.springboot_demo.model;
 
-public class User {
-    Integer id;
-    String name;
-    String password;
+import javax.persistence.*;
+import java.util.Date;
 
+
+@Entity
+@Table(name = "t_users")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String name;
+    private String password;
+    @Column(name = "reg_date")
+    private Date regDate;
+    @ManyToOne//一对多
+    @JoinColumn(name = "address_id")//外键
+    private Address address;
 
     public User() {
     }
 
-    public User(Integer id, String name, String password) {
+    public User(Integer id, String name, String password, Date regDate, Address address) {
         this.id = id;
         this.name = name;
         this.password = password;
+        this.regDate = regDate;
+        this.address = address;
     }
+
 
     public Integer getId() {
         return id;
@@ -39,12 +55,31 @@ public class User {
         this.password = password;
     }
 
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
+                ", regDate=" + regDate +
+                ", address=" + address +
                 '}';
     }
 }

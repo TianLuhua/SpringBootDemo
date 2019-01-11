@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>页面布局</title>
+    <style>
+        .box {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        .container {
+            width: 805px;
+            margin: 0 auto;
+        }
+
+        .header {
+            width: 100%;
+            height: 60px;
+            background: orange;
+        }
+
+        .content {
+            position: relative;
+            width: 1000px;
+            margin: 0 auto;
+        }
+
+        .content_body {
+            position: relative;
+            width: 100%;
+            height: 480px;
+            background: olive;
+        }
+
+        .content_footer {
+            position: relative;
+            height: 60px;
+            background: orangered;
+            width: 100%
+        }
+
+        .sidlebar {
+            height: 100%;
+            width: 1000px;
+            float: left;
+            background: orchid;
+        }
+
+        .center {
+            float: left;
+            width: 1000px;
+            height: 100%;
+            background: blanchedalmond;
+        }
+
+        .right {
+            height: 100%;
+            width: 100px;
+            float: right;
+            background: yellowgreen;
+        }
+
+        .active {
+            color: red;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="box">
+        <div th:replace="commons::header"/>
+        <div class="content">
+            主页页面
+            <div class="content_body">
+                <div th:replace="commons::sidlebar(isActive='main.html')"/>
+                <div class="center"/>
+            </div>
+        </div>
+        <div th:replace="commons::footer"/>
+    </div>
+</div>
+</body>
+</html>
+

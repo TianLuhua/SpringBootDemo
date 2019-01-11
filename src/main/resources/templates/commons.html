@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div class="header" th:fragment="header">SpringBoot开发小案例的头部</div>
+
+<div class="sidlebar" th:fragment="sidlebar">
+    <div class="left">
+        <a href="#" th:class="${isActive=='main.html'?'active':''}" th:href="@{/logout.html}">退出</a>
+        <br/>
+        <a href="#" th:class="${isActive=='userlist.html'?'active':''}" th:href="@{/userlist.html}">用户列表</a>
+    </div>
+</div>
+
+<div class="footer" th:fragment="footer">SpringBoot开发小案例的底部</div>
+</body>
+</html>

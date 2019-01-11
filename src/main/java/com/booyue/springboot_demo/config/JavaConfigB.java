@@ -1,4 +1,4 @@
-package com.booyue.springboot_demo.domain.config;
+package com.booyue.springboot_demo.config;
 
 
 import com.booyue.springboot_demo.domain.impl.ToYoTa;

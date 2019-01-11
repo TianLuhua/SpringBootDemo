@@ -1,4 +1,4 @@
-package com.booyue.springboot_demo.domain.config;
+package com.booyue.springboot_demo.config;
 
 
 import com.alibaba.druid.pool.DruidDataSource;
@@ -11,7 +11,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;

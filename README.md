@@ -413,3 +413,8 @@ public class SpringbootDemoApplicationTest {
 6.4 jpa遇到的问题：<br>
     6.4.1.插入中文时候报错(这个暂时我还不知道怎么处理，本来想看看能不能从jpa的配置文件中解决。最后还是在数据库中直接修改的utf-8)
 
+
+7.web小案例
+7.1 登录
+7.2 判断是否登录,用户拦截器实现：
+ 实现接口：HandlerInterceptor

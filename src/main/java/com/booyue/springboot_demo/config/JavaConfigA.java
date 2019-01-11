@@ -1,8 +1,7 @@
-package com.booyue.springboot_demo.domain.config;
+package com.booyue.springboot_demo.config;
 
 
 import com.booyue.springboot_demo.domain.impl.BMW;
-import com.booyue.springboot_demo.domain.impl.ToYoTa;
 import com.booyue.springboot_demo.domain.inter.Car;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

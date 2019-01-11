@@ -3,7 +3,9 @@ package com.booyue.springboot_demo;
 
 import com.booyue.springboot_demo.dao.CustomerDao;
 import com.booyue.springboot_demo.dao.SellerDao;
+import com.booyue.springboot_demo.dao.UserDao;
 import com.booyue.springboot_demo.model.Seller;
+import com.booyue.springboot_demo.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class SpringbootDemoApplicationTest {
 
     @Autowired
     private SellerDao sellerDao;
+
+    @Autowired
+    private UserDao userDao;
 
     @Test
     public void connectTest() throws SQLException {
@@ -61,15 +66,18 @@ public class SpringbootDemoApplicationTest {
 
     @Test
     public void testJpa() {
-        System.out.println(sellerDao.getClass());
-        Seller seller = new Seller();
-        seller.setSellerName("快乐水");
-        seller.setSellerAddress("超市");
-        seller.setSellerContent("具体什么内容，我也不知道");
-        seller.setSellerType("饮料");
-        seller.setSales(1);
-        seller.setSellerDate(new Date());
-        sellerDao.save(seller);
+//        System.out.println(sellerDao.getClass());
+//        Seller seller = new Seller();
+//        seller.setSellerName("快乐水");
+//        seller.setSellerAddress("超市");
+//        seller.setSellerContent("具体什么内容，我也不知道");
+//        seller.setSellerType("饮料");
+//        seller.setSales(1);
+//        seller.setSellerDate(new Date());
+//        sellerDao.save(seller);
+
+        User u = userDao.getUserByName("tianluhua");
+        System.out.println("====================："+u.toString());
     }
 
 
