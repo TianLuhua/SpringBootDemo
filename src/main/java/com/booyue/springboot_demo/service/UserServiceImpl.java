@@ -59,6 +59,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUserByLikeName(String likeName) {
-        return userDao.getByNameIsLike("%"+likeName+"%");
+        return userDao.getByNameIsLike("%" + likeName + "%");
     }
 }

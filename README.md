@@ -417,4 +417,17 @@ public class SpringbootDemoApplicationTest {
 7.web小案例
 7.1 登录
 7.2 判断是否登录,用户拦截器实现：
- 实现接口：HandlerInterceptor
+ 实现接口：HandlerInterceptor<br>
+ 
+8.事务处理:SpringBoot中使用事务<br>
+8.1 在启动类中添加注解：@EnableTransactionManagement<br>
+8.2 在service层访问数据库方法中使用注解：@Transactional<br>
+  8.1.1 注解在方法上：指定方法支持事务<br>
+  8.1.2 注解在类上：对应类中的全部方法支持事务<br>
+8.3 手动指定事务管理器(方法名字无所谓，但是需要@Bean注解和返回PlatformTransactionManager)：
+~~~
+    @Bean
+    public PlatformTransactionManager testPlatformTransactionManager() {
+        return new DataSourceTransactionManager();
+    }
+~~~

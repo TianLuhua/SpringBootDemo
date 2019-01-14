@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -76,7 +77,7 @@ public class UserController {
     @GetMapping("/deleteuser.html")
     public String deleteUser(Integer id) {
         userService.delete(id);
-        return "deleteuser";
+        return "redirect:/userlist.html";
     }
 
     @GetMapping("/updateuser.html")
@@ -99,5 +100,13 @@ public class UserController {
         List<Address> addresses = addressService.getAllAddresses();
         model.addAttribute("addresses", addresses);
         return "adduser";
+    }
+
+
+    @PostMapping("/adduser.html")//在提交到该方法时，form表单的name名称必须和user的属相名字一致
+    public String addUser(User user) {
+        user.setRegDate(new Date());
+        userService.add(user);
+        return "redirect:/userlist.html";
     }
 }

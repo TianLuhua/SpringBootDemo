@@ -4,6 +4,7 @@ import com.booyue.springboot_demo.dao.AddressDao;
 import com.booyue.springboot_demo.model.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
