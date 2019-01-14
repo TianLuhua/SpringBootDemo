@@ -35,10 +35,10 @@
         public class ConfigParsent {
         }
    ```
-###2.FreeMarker相关<br>
+2.FreeMarker相关<br>
 
 
-###3.自定义数据源（DataSource）,以阿里巴巴Druid为例：<br>
+3.自定义数据源（DataSource）,以阿里巴巴Druid为例：<br>
 3.1 在pom.xml中添加Druid和Mysql依赖：
 ```
      <!--阿里的数据库连接池-->
@@ -98,7 +98,7 @@ public class ConfigParsent implements WebMvcConfigurer {
 ~~~
 然后其他的地方就可以通过注解：@Autowired，获取到DruidDataSource的实例了。
 
-###4.Druid后台整和
+4.Druid后台整和：<br>
 4.1 配置Servlet
 ~~~
     //配置对整个应用监控：
@@ -129,7 +129,7 @@ public class ConfigParsent implements WebMvcConfigurer {
         return bean;
     }
 ~~~
-###5.整和MyBatis<br>
+5.整和MyBatis<br>
 5.1 依赖MyBatis
 ~~~
         <!--用于连接mysql数据库-->
@@ -291,7 +291,7 @@ public class SpringbootDemoApplicationTest {
     }
 }
 ~~~
-###6.整和JPA
+6.整和JPA：<br>
 6.1 添加依赖启动器：jdbc，jpa
 ~~~
  <!--用于连接mysql数据库-->
