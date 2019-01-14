@@ -81,8 +81,18 @@ public class UserController {
     }
 
     @GetMapping("/updateuser.html")
-    public String updateUser(Integer id) {
+    public String updateUser(Integer id, Model model) {
+        List<Address> addresses = addressService.getAllAddresses();
+        User user = userService.get(id);
+        model.addAttribute("addresses", addresses);
+        model.addAttribute("user", user);
         return "updateuser";
+    }
+
+    @PostMapping("/updateuser.html")
+    public String updateUser(User user) {
+        userService.update(user);
+        return "redirect:/userlist.html";
     }
 
 
@@ -96,7 +106,6 @@ public class UserController {
 
     @GetMapping("/adduser.html")
     public String addUser(Model model) {
-
         List<Address> addresses = addressService.getAllAddresses();
         model.addAttribute("addresses", addresses);
         return "adduser";

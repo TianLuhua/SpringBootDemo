@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>更改用户信息</title>
 </head>
 <body>
-
+<div class="main">
+    <form th:action="@{/updateuser.html}" method="post">
+        <input type="hidden" name="id" th:value="${user.id}"/><br><br>
+        用户名：<input type="text" name="name" th:value="${user.name}"/><br><br>
+        用户密码：<input type="text" name="password" th:value="${user.password}"/><br><br>
+        注册时间：<input type="text" name="regDate" th:value="${#dates.format(user.regDate,'yyy-MM-dd HH:mm:ss')}"/><br><br>
+        用户地址：<select name="address.id">
+        <option th:value="${address.id}" th:each="address:${addresses}"
+                th:selected="${user.address.id==address.id}" th:text="${address.getAddressInfo()}"/>
+    </select><br><br>
+        <input type="submit" th:value="修改">
+    </form>
+</div>
 </body>
 </html>

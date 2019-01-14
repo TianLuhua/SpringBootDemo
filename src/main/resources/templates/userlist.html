@@ -89,7 +89,7 @@
                             <td th:text="${user.getPassword()}"/>
                             <td th:text="${user.getAddress().getAddressInfo()}"/>
                             <td th:text="${user.getRegDate()}"/>
-                            <td><a th:href="@{/deleteuser.html(id=${user.id})}">删除</a>
+                            <td><a onclick="return confirm('你确定要删除该记录吗？')" th:href="@{/deleteuser.html(id=${user.id})}">删除</a>
                                 <a th:href="@{/updateuser.html(id=${user.id})}">修改</a>
                             </td>
                         </tr>

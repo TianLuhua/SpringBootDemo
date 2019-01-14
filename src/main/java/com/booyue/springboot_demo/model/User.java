@@ -1,5 +1,7 @@
 package com.booyue.springboot_demo.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +16,7 @@ public class User {
     private String name;
     private String password;
     @Column(name = "reg_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")//解决用户修改日期后，String再次封装成Date时报错问题
     private Date regDate;
     @ManyToOne//一对多
     @JoinColumn(name = "address_id")//外键
