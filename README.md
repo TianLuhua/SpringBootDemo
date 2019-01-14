@@ -431,3 +431,44 @@ public class SpringbootDemoApplicationTest {
         return new DataSourceTransactionManager();
     }
 ~~~
+9.SpringBoot异常处理<br>
+9.1 系统默认存放异常处理页面的目录：/resource/templates/error/4xx.html或者/resource/templates/error/5xx.html,如果不存在对应的页面SpringBoot就显示自己的错误处理页面<br>
+9.2 在Controller的方法中用@ExceptionHandler注解，在方法会处理value对应的错误类型（该种方法优先于9.1）：
+~~~
+    @ExceptionHandler(value = {java.lang.NullPointerException.class})
+    public ModelAndView exception(Exception e) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("error", e);//注入错误类，可以在自定义的视图中显示信息
+        modelAndView.setViewName("myerror");//指定错误视图名
+        return modelAndView;
+    }
+~~~
+9.3 @ControllerAdvice注解在类上:处理整个项目中所有的Controller爆出的异常:
+~~~
+@ControllerAdvice
+public class ErrorController {
+    @ExceptionHandler(value = {java.lang.NullPointerException.class})
+    public ModelAndView exception(Exception e) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("error", e);//注入错误类，可以在自定义的视图中显示信息
+        modelAndView.setViewName("myerror");//指定错误视图名
+        return modelAndView;
+    }
+}
+~~~
+9.4 配置类中添加对应方法（改方法需要用@Bean注解，为了能放该方法返回的类型的实例加入到Spring的IOC容器中），返回SimpleMappingExceptionResolver
+~~~
+   @Bean //方法名对应SpringIOC容器的id
+    public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+        SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
+        Properties properties = new Properties();
+        //错误类型加上处理改错误类型的错误页面的名称。默认注入页面的错误类型的键是：excptions
+        properties.put("java.lang.NullPointerException", "nullExcption");
+        properties.put("java.lang.ArrayIndexOutOfBoundsException", "aioobExcption");
+        simpleMappingExceptionResolver.setExceptionMappings(properties);
+        return simpleMappingExceptionResolver;
+    }
+
+~~~
+9.5 实现HandlerExceptionResolver接口，添加到SpringBoot的配置类
+

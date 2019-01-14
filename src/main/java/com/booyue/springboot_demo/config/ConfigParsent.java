@@ -12,11 +12,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 
 /**
@@ -62,5 +64,17 @@ public class ConfigParsent implements WebMvcConfigurer {
         bean.setInitParameters(map);
         return bean;
     }
+
+    @Bean //方法名对应SpringIOC容器的id
+    public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+        SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
+        Properties properties = new Properties();
+        //错误类型加上处理改错误类型的错误页面的名称。默认注入页面的错误类型的键是：excptions
+        properties.put("java.lang.NullPointerException", "nullExcption");
+        properties.put("java.lang.ArrayIndexOutOfBoundsException", "aioobExcption");
+        simpleMappingExceptionResolver.setExceptionMappings(properties);
+        return simpleMappingExceptionResolver;
+    }
+
 
 }
