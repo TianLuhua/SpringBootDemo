@@ -471,3 +471,8 @@ public class ErrorController {
 ~~~
 9.5 实现HandlerExceptionResolver接口，添加到SpringBoot的配置类
 
+10 SpringBoot表单数据有效性数据检验（JSR-303规范）:<br>
+10.1 在实体类的属性上使用对应的数据校验的注解，例如：@NotNull、@NotEmpty等等<br>
+10.2 在对应的Controller方法上的参数上添加@Valid注解。改方法中需要添加被数据有效性注解的类的对象，系统会在类方法中默认传入一个BindingResult（Error的子接口）的实例，这两个变量必须挨着。<br>
+10.3 错误信息可以自定义，可以用于回显
+    
