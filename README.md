@@ -479,7 +479,7 @@ public class ErrorController {
 11  servlet容器（Tomcat、jetty、undertow）有关配置:<br>
 11.1 servier.xxxx 针对所有的servlet配置。service.tomcat.xxx针对tomcat配置，其他的以此类推<br>
 
-12 自定义启动器<br>
+12 自定义启动器：[参考](https://github.com/TianLuhua/Tianluhua-spring-boot-starter)<br>
 
 12.1 创建一个Spring Initializr工程（只要里面有SpringBoot的启动器），然后创建四类文件<br>
 12.1.1 完成核心业务类（我这里就是返回一句话，当然按照自己的需求来）：
